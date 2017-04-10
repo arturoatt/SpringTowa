@@ -60,7 +60,38 @@ public class EspecialidadDAO {
 		return especialidad;
 	}
 
-	public Especialidad updateEspecialidad(Especialidad especialidad) {
+	public Especialidad updateEspecialidad(Especialidad especialidad) throws SQLException {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		Statement st = null;
+		try {
+			con = new ConnectionHospital().getConnection();
+			
+			StringBuffer sb = new StringBuffer("UPDATE ESPECIALIDAD SET NOMBRE = ? ");
+			sb.append("WHERE ID_ESPECIALIDAD = ?");
+			
+			ps = con.prepareStatement(sb.toString());
+			ps.setString(1, especialidad.getNombre());
+			ps.setInt(2, especialidad.getIdEspecialidad());
+
+			ps.executeUpdate();			
+			
+		} catch (SQLException e) {			
+			logger.info("Error en createEspecialidad" + e.getMessage());
+			e.printStackTrace();
+		} finally {
+			if (ps != null) {
+				ps.close();
+			}
+
+			if (con != null) {
+				con.close();
+			}
+			if (st != null) {
+				st.close();
+			}
+		}
 
 		return especialidad;
 	}

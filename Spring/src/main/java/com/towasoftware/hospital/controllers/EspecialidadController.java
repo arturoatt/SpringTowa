@@ -28,11 +28,9 @@ public class EspecialidadController {
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT)
-	public @ResponseBody Especialidad updateEspecialidad(@RequestBody Especialidad especialidad) {
+	public @ResponseBody Especialidad updateEspecialidad(@RequestBody Especialidad especialidad) throws SQLException {	
 		
-		
-		
-		return especialidad;
+		return new EspecialidadDAO().updateEspecialidad(especialidad);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
